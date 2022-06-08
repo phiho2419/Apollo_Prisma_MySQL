@@ -16,8 +16,8 @@ const typeDefs = gql`
     getUser: [User]
     getUserById(id: ID!): User
     getUserByEmail(email: String!): User
-    getAmountOfUserActiveOnDay: UserActiveOnDay!
-    getAmountOfNewUserOnDay: NewUserOnDay!
+    getAmountOfUserActiveOnDay(date: String!): [UserActiveOnDay]!
+    getAmountOfNewUserOnDay(date: String!): [NewUserOnDay]!
   }
   type AuthPayLoad {
     token: String!
@@ -27,10 +27,10 @@ const typeDefs = gql`
     message: String!
   }
   type NewUserOnDay {
-    amount: String!
+    amount: String
   }
   type UserActiveOnDay {
-    amount: String!
+    amount: String
   }
   type Mutation {
     loginUser(password: String!, email: String!): AuthPayLoad!
@@ -53,8 +53,6 @@ const typeDefs = gql`
     ): User
     deleteUser(email: String!, token: String!): DeleteUserReport!
   }
-  
-  
 
   enum UserRole {
     ADMIN

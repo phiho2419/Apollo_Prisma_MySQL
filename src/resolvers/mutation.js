@@ -17,6 +17,11 @@ const Mutation = {
     if (!theUser) throw new Error("Unable to Login");
     const isMatch = bcryptjs.compareSync(password, theUser.password);
     if (!isMatch) throw new Error("Unable to Login");
+    await prisma.userLoginDetail.create({
+      data: {
+        userId: theUser.id,
+      },
+    });
     return {
       token: generateToken({ email, role: theUser.role }),
       userData: theUser,

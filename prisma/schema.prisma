@@ -18,9 +18,18 @@ model User {
 	email   String   @unique @db.VarChar(255)
 	phonenumber String? @db.VarChar(100)
 	role UserRole @default(USER)
+	user_login_detail UserLoginDetail[]
 	createdAt DateTime   @default(now())
   	updatedAt DateTime   @updatedAt
 	@@map(name: "user")
+}
+
+model UserLoginDetail {
+	id Int @id @default(autoincrement())
+	users User @relation(fields: [userId], references: [id])
+	userId Int 
+	createdAt DateTime   @default(now())
+	@@map(name: "userlogindetail")
 }
 
 enum UserRole {

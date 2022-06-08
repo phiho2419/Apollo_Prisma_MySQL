@@ -22,11 +22,17 @@ const Query = {
   getUser: (parent, args) => {
     return prisma.user.findMany();
   },
-  getAmountOfNewUserOnDay: () => {
-    return { amount: 0 };
+  getAmountOfNewUserOnDay: async (parent, args) => {
+    const date = args.date;
+    const queryString = `SELECT count(id) as amount FROM user where createdAt like "%${date}%";`;
+    const amount = await prisma.$queryRawUnsafe(queryString);
+    return amount;
   },
-  getAmountOfUserActiveOnDay: () => {
-    return { amount: 0 };
+  getAmountOfUserActiveOnDay:async (parent, args) => {
+    const date = args.date;
+    const queryString = `SELECT count(distinct userId) as amount FROM userlogindetail where createdAt like "%${date}%";`;
+    const amount = await prisma.$queryRawUnsafe(queryString);
+    return amount;
   },
 };
 
