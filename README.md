@@ -9,12 +9,15 @@ In docker-compose.yml, config this with your environment variable and docker por
 Create .env at root, add the following code to the newly created file:
 DATABASE_URL="mysql://db_user:db_password@localhost:3308/db_name?schema=public"
 Run with this command: $ docker-compose up -d
+
 2:
 Then - run this command to create structure of project database:
 $ npx prisma migrate dev
+
 3:
 Start project:
 $ yarn start
+
 4:
 Testing:
 
@@ -45,6 +48,7 @@ Testing:
             phonenumber
             role
         }
+    }
     Get user by email: DONT NEED AUTHORIZE
     query {
         getUserByEmail(email: "vbvbs@gmail.com") {
@@ -69,7 +73,6 @@ Testing:
         }
     }
 
-}
 
     Update user: NEED ADMIN ROLE (copy your token when login )
     mutation{
@@ -102,4 +105,4 @@ Testing:
 
 }
 
-}
+
